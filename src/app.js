@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import authRoutes from "./modules/auth/auth.routes.js";
+import recipeRoutes from "./modules/recipes/recipes.routes.js";
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 export default app;
