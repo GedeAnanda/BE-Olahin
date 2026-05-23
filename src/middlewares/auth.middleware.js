@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { decode } from "node:punycode";
 
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
