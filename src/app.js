@@ -5,6 +5,7 @@ import authRoutes from "./modules/auth/auth.routes.js";
 import recipeRoutes from "./modules/recipes/recipes.routes.js";
 import bookmarkRoutes from "./modules/bookmarks/bookmarks.routes.js";
 import challengeRoutes from "./modules/challenges/challenges.routes.js";
+import userRoutes from "./modules/users/users.routes.js";
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/bookmarks", bookmarkRoutes);
 app.use("/api/challenges", challengeRoutes);
+app.use("/api/users", userRoutes);
 
 export default app;
