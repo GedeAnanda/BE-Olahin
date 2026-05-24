@@ -169,6 +169,7 @@ exports.Prisma.BookmarkScalarFieldEnum = {
 
 exports.Prisma.ChallengeScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   title: 'title',
   description: 'description',
   recipeId: 'recipeId',

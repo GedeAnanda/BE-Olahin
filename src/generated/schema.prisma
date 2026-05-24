@@ -21,6 +21,7 @@ model User {
   recipes      Recipe[]
   bookmarks    Bookmark[]
   participants ChallengeParticipant[]
+  challenges   Challenge[]
 }
 
 model Recipe {
@@ -76,12 +77,14 @@ model Bookmark {
 
 model Challenge {
   id          String   @id @default(uuid())
+  userId      String
   title       String
   description String
   recipeId    String?
   weekStart   DateTime
   weekEnd     DateTime
 
+  user         User                   @relation(fields: [userId], references: [id])
   recipe       Recipe?                @relation(fields: [recipeId], references: [id])
   participants ChallengeParticipant[]
 }

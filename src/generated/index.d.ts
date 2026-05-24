@@ -1410,12 +1410,14 @@ export namespace Prisma {
     recipes: number
     bookmarks: number
     participants: number
+    challenges: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     recipes?: boolean | UserCountOutputTypeCountRecipesArgs
     bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
     participants?: boolean | UserCountOutputTypeCountParticipantsArgs
+    challenges?: boolean | UserCountOutputTypeCountChallengesArgs
   }
 
   // Custom InputTypes
@@ -1448,6 +1450,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChallengeParticipantWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChallengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChallengeWhereInput
   }
 
 
@@ -1727,6 +1736,7 @@ export namespace Prisma {
     recipes?: boolean | User$recipesArgs<ExtArgs>
     bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
     participants?: boolean | User$participantsArgs<ExtArgs>
+    challenges?: boolean | User$challengesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1765,6 +1775,7 @@ export namespace Prisma {
     recipes?: boolean | User$recipesArgs<ExtArgs>
     bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
     participants?: boolean | User$participantsArgs<ExtArgs>
+    challenges?: boolean | User$challengesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1776,6 +1787,7 @@ export namespace Prisma {
       recipes: Prisma.$RecipePayload<ExtArgs>[]
       bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
       participants: Prisma.$ChallengeParticipantPayload<ExtArgs>[]
+      challenges: Prisma.$ChallengePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2182,6 +2194,7 @@ export namespace Prisma {
     recipes<T extends User$recipesArgs<ExtArgs> = {}>(args?: Subset<T, User$recipesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookmarks<T extends User$bookmarksArgs<ExtArgs> = {}>(args?: Subset<T, User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     participants<T extends User$participantsArgs<ExtArgs> = {}>(args?: Subset<T, User$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengeParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    challenges<T extends User$challengesArgs<ExtArgs> = {}>(args?: Subset<T, User$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2675,6 +2688,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChallengeParticipantScalarFieldEnum | ChallengeParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * User.challenges
+   */
+  export type User$challengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Challenge
+     */
+    select?: ChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Challenge
+     */
+    omit?: ChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeInclude<ExtArgs> | null
+    where?: ChallengeWhereInput
+    orderBy?: ChallengeOrderByWithRelationInput | ChallengeOrderByWithRelationInput[]
+    cursor?: ChallengeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChallengeScalarFieldEnum | ChallengeScalarFieldEnum[]
   }
 
   /**
@@ -7190,6 +7227,7 @@ export namespace Prisma {
 
   export type ChallengeMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     title: string | null
     description: string | null
     recipeId: string | null
@@ -7199,6 +7237,7 @@ export namespace Prisma {
 
   export type ChallengeMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     title: string | null
     description: string | null
     recipeId: string | null
@@ -7208,6 +7247,7 @@ export namespace Prisma {
 
   export type ChallengeCountAggregateOutputType = {
     id: number
+    userId: number
     title: number
     description: number
     recipeId: number
@@ -7219,6 +7259,7 @@ export namespace Prisma {
 
   export type ChallengeMinAggregateInputType = {
     id?: true
+    userId?: true
     title?: true
     description?: true
     recipeId?: true
@@ -7228,6 +7269,7 @@ export namespace Prisma {
 
   export type ChallengeMaxAggregateInputType = {
     id?: true
+    userId?: true
     title?: true
     description?: true
     recipeId?: true
@@ -7237,6 +7279,7 @@ export namespace Prisma {
 
   export type ChallengeCountAggregateInputType = {
     id?: true
+    userId?: true
     title?: true
     description?: true
     recipeId?: true
@@ -7319,6 +7362,7 @@ export namespace Prisma {
 
   export type ChallengeGroupByOutputType = {
     id: string
+    userId: string
     title: string
     description: string
     recipeId: string | null
@@ -7345,11 +7389,13 @@ export namespace Prisma {
 
   export type ChallengeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     title?: boolean
     description?: boolean
     recipeId?: boolean
     weekStart?: boolean
     weekEnd?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | Challenge$recipeArgs<ExtArgs>
     participants?: boolean | Challenge$participantsArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
@@ -7357,26 +7403,31 @@ export namespace Prisma {
 
   export type ChallengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     title?: boolean
     description?: boolean
     recipeId?: boolean
     weekStart?: boolean
     weekEnd?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | Challenge$recipeArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
 
   export type ChallengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     title?: boolean
     description?: boolean
     recipeId?: boolean
     weekStart?: boolean
     weekEnd?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | Challenge$recipeArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
 
   export type ChallengeSelectScalar = {
     id?: boolean
+    userId?: boolean
     title?: boolean
     description?: boolean
     recipeId?: boolean
@@ -7384,27 +7435,32 @@ export namespace Prisma {
     weekEnd?: boolean
   }
 
-  export type ChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "recipeId" | "weekStart" | "weekEnd", ExtArgs["result"]["challenge"]>
+  export type ChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "recipeId" | "weekStart" | "weekEnd", ExtArgs["result"]["challenge"]>
   export type ChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | Challenge$recipeArgs<ExtArgs>
     participants?: boolean | Challenge$participantsArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChallengeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | Challenge$recipeArgs<ExtArgs>
   }
   export type ChallengeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | Challenge$recipeArgs<ExtArgs>
   }
 
   export type $ChallengePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Challenge"
     objects: {
+      user: Prisma.$UserPayload<ExtArgs>
       recipe: Prisma.$RecipePayload<ExtArgs> | null
       participants: Prisma.$ChallengeParticipantPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string
       title: string
       description: string
       recipeId: string | null
@@ -7804,6 +7860,7 @@ export namespace Prisma {
    */
   export interface Prisma__ChallengeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recipe<T extends Challenge$recipeArgs<ExtArgs> = {}>(args?: Subset<T, Challenge$recipeArgs<ExtArgs>>): Prisma__RecipeClient<$Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     participants<T extends Challenge$participantsArgs<ExtArgs> = {}>(args?: Subset<T, Challenge$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengeParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7836,6 +7893,7 @@ export namespace Prisma {
    */
   interface ChallengeFieldRefs {
     readonly id: FieldRef<"Challenge", 'String'>
+    readonly userId: FieldRef<"Challenge", 'String'>
     readonly title: FieldRef<"Challenge", 'String'>
     readonly description: FieldRef<"Challenge", 'String'>
     readonly recipeId: FieldRef<"Challenge", 'String'>
@@ -9441,6 +9499,7 @@ export namespace Prisma {
 
   export const ChallengeScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     title: 'title',
     description: 'description',
     recipeId: 'recipeId',
@@ -9571,6 +9630,7 @@ export namespace Prisma {
     recipes?: RecipeListRelationFilter
     bookmarks?: BookmarkListRelationFilter
     participants?: ChallengeParticipantListRelationFilter
+    challenges?: ChallengeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9584,6 +9644,7 @@ export namespace Prisma {
     recipes?: RecipeOrderByRelationAggregateInput
     bookmarks?: BookmarkOrderByRelationAggregateInput
     participants?: ChallengeParticipantOrderByRelationAggregateInput
+    challenges?: ChallengeOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9600,6 +9661,7 @@ export namespace Prisma {
     recipes?: RecipeListRelationFilter
     bookmarks?: BookmarkListRelationFilter
     participants?: ChallengeParticipantListRelationFilter
+    challenges?: ChallengeListRelationFilter
   }, "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -9893,22 +9955,26 @@ export namespace Prisma {
     OR?: ChallengeWhereInput[]
     NOT?: ChallengeWhereInput | ChallengeWhereInput[]
     id?: StringFilter<"Challenge"> | string
+    userId?: StringFilter<"Challenge"> | string
     title?: StringFilter<"Challenge"> | string
     description?: StringFilter<"Challenge"> | string
     recipeId?: StringNullableFilter<"Challenge"> | string | null
     weekStart?: DateTimeFilter<"Challenge"> | Date | string
     weekEnd?: DateTimeFilter<"Challenge"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipe?: XOR<RecipeNullableScalarRelationFilter, RecipeWhereInput> | null
     participants?: ChallengeParticipantListRelationFilter
   }
 
   export type ChallengeOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     recipeId?: SortOrderInput | SortOrder
     weekStart?: SortOrder
     weekEnd?: SortOrder
+    user?: UserOrderByWithRelationInput
     recipe?: RecipeOrderByWithRelationInput
     participants?: ChallengeParticipantOrderByRelationAggregateInput
   }
@@ -9918,17 +9984,20 @@ export namespace Prisma {
     AND?: ChallengeWhereInput | ChallengeWhereInput[]
     OR?: ChallengeWhereInput[]
     NOT?: ChallengeWhereInput | ChallengeWhereInput[]
+    userId?: StringFilter<"Challenge"> | string
     title?: StringFilter<"Challenge"> | string
     description?: StringFilter<"Challenge"> | string
     recipeId?: StringNullableFilter<"Challenge"> | string | null
     weekStart?: DateTimeFilter<"Challenge"> | Date | string
     weekEnd?: DateTimeFilter<"Challenge"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipe?: XOR<RecipeNullableScalarRelationFilter, RecipeWhereInput> | null
     participants?: ChallengeParticipantListRelationFilter
   }, "id">
 
   export type ChallengeOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     recipeId?: SortOrderInput | SortOrder
@@ -9944,6 +10013,7 @@ export namespace Prisma {
     OR?: ChallengeScalarWhereWithAggregatesInput[]
     NOT?: ChallengeScalarWhereWithAggregatesInput | ChallengeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Challenge"> | string
+    userId?: StringWithAggregatesFilter<"Challenge"> | string
     title?: StringWithAggregatesFilter<"Challenge"> | string
     description?: StringWithAggregatesFilter<"Challenge"> | string
     recipeId?: StringNullableWithAggregatesFilter<"Challenge"> | string | null
@@ -10021,6 +10091,7 @@ export namespace Prisma {
     recipes?: RecipeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     participants?: ChallengeParticipantCreateNestedManyWithoutUserInput
+    challenges?: ChallengeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10034,6 +10105,7 @@ export namespace Prisma {
     recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     participants?: ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+    challenges?: ChallengeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10047,6 +10119,7 @@ export namespace Prisma {
     recipes?: RecipeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     participants?: ChallengeParticipantUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10060,6 +10133,7 @@ export namespace Prisma {
     recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     participants?: ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10361,12 +10435,14 @@ export namespace Prisma {
     description: string
     weekStart: Date | string
     weekEnd: Date | string
+    user: UserCreateNestedOneWithoutChallengesInput
     recipe?: RecipeCreateNestedOneWithoutChallengesInput
     participants?: ChallengeParticipantCreateNestedManyWithoutChallengeInput
   }
 
   export type ChallengeUncheckedCreateInput = {
     id?: string
+    userId: string
     title: string
     description: string
     recipeId?: string | null
@@ -10381,12 +10457,14 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
     weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutChallengesNestedInput
     recipe?: RecipeUpdateOneWithoutChallengesNestedInput
     participants?: ChallengeParticipantUpdateManyWithoutChallengeNestedInput
   }
 
   export type ChallengeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     recipeId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10397,6 +10475,7 @@ export namespace Prisma {
 
   export type ChallengeCreateManyInput = {
     id?: string
+    userId: string
     title: string
     description: string
     recipeId?: string | null
@@ -10414,6 +10493,7 @@ export namespace Prisma {
 
   export type ChallengeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     recipeId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10534,6 +10614,12 @@ export namespace Prisma {
     none?: ChallengeParticipantWhereInput
   }
 
+  export type ChallengeListRelationFilter = {
+    every?: ChallengeWhereInput
+    some?: ChallengeWhereInput
+    none?: ChallengeWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -10548,6 +10634,10 @@ export namespace Prisma {
   }
 
   export type ChallengeParticipantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChallengeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10664,21 +10754,11 @@ export namespace Prisma {
     none?: StepWhereInput
   }
 
-  export type ChallengeListRelationFilter = {
-    every?: ChallengeWhereInput
-    some?: ChallengeWhereInput
-    none?: ChallengeWhereInput
-  }
-
   export type IngredientOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type StepOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ChallengeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10851,6 +10931,7 @@ export namespace Prisma {
 
   export type ChallengeCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     recipeId?: SortOrder
@@ -10860,6 +10941,7 @@ export namespace Prisma {
 
   export type ChallengeMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     recipeId?: SortOrder
@@ -10869,6 +10951,7 @@ export namespace Prisma {
 
   export type ChallengeMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     recipeId?: SortOrder
@@ -10931,6 +11014,13 @@ export namespace Prisma {
     connect?: ChallengeParticipantWhereUniqueInput | ChallengeParticipantWhereUniqueInput[]
   }
 
+  export type ChallengeCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChallengeCreateWithoutUserInput, ChallengeUncheckedCreateWithoutUserInput> | ChallengeCreateWithoutUserInput[] | ChallengeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChallengeCreateOrConnectWithoutUserInput | ChallengeCreateOrConnectWithoutUserInput[]
+    createMany?: ChallengeCreateManyUserInputEnvelope
+    connect?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+  }
+
   export type RecipeUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RecipeCreateWithoutUserInput, RecipeUncheckedCreateWithoutUserInput> | RecipeCreateWithoutUserInput[] | RecipeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RecipeCreateOrConnectWithoutUserInput | RecipeCreateOrConnectWithoutUserInput[]
@@ -10950,6 +11040,13 @@ export namespace Prisma {
     connectOrCreate?: ChallengeParticipantCreateOrConnectWithoutUserInput | ChallengeParticipantCreateOrConnectWithoutUserInput[]
     createMany?: ChallengeParticipantCreateManyUserInputEnvelope
     connect?: ChallengeParticipantWhereUniqueInput | ChallengeParticipantWhereUniqueInput[]
+  }
+
+  export type ChallengeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChallengeCreateWithoutUserInput, ChallengeUncheckedCreateWithoutUserInput> | ChallengeCreateWithoutUserInput[] | ChallengeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChallengeCreateOrConnectWithoutUserInput | ChallengeCreateOrConnectWithoutUserInput[]
+    createMany?: ChallengeCreateManyUserInputEnvelope
+    connect?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11006,6 +11103,20 @@ export namespace Prisma {
     deleteMany?: ChallengeParticipantScalarWhereInput | ChallengeParticipantScalarWhereInput[]
   }
 
+  export type ChallengeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChallengeCreateWithoutUserInput, ChallengeUncheckedCreateWithoutUserInput> | ChallengeCreateWithoutUserInput[] | ChallengeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChallengeCreateOrConnectWithoutUserInput | ChallengeCreateOrConnectWithoutUserInput[]
+    upsert?: ChallengeUpsertWithWhereUniqueWithoutUserInput | ChallengeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChallengeCreateManyUserInputEnvelope
+    set?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    disconnect?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    delete?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    connect?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    update?: ChallengeUpdateWithWhereUniqueWithoutUserInput | ChallengeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChallengeUpdateManyWithWhereWithoutUserInput | ChallengeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChallengeScalarWhereInput | ChallengeScalarWhereInput[]
+  }
+
   export type RecipeUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RecipeCreateWithoutUserInput, RecipeUncheckedCreateWithoutUserInput> | RecipeCreateWithoutUserInput[] | RecipeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RecipeCreateOrConnectWithoutUserInput | RecipeCreateOrConnectWithoutUserInput[]
@@ -11046,6 +11157,20 @@ export namespace Prisma {
     update?: ChallengeParticipantUpdateWithWhereUniqueWithoutUserInput | ChallengeParticipantUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ChallengeParticipantUpdateManyWithWhereWithoutUserInput | ChallengeParticipantUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ChallengeParticipantScalarWhereInput | ChallengeParticipantScalarWhereInput[]
+  }
+
+  export type ChallengeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChallengeCreateWithoutUserInput, ChallengeUncheckedCreateWithoutUserInput> | ChallengeCreateWithoutUserInput[] | ChallengeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChallengeCreateOrConnectWithoutUserInput | ChallengeCreateOrConnectWithoutUserInput[]
+    upsert?: ChallengeUpsertWithWhereUniqueWithoutUserInput | ChallengeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChallengeCreateManyUserInputEnvelope
+    set?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    disconnect?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    delete?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    connect?: ChallengeWhereUniqueInput | ChallengeWhereUniqueInput[]
+    update?: ChallengeUpdateWithWhereUniqueWithoutUserInput | ChallengeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChallengeUpdateManyWithWhereWithoutUserInput | ChallengeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChallengeScalarWhereInput | ChallengeScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutRecipesInput = {
@@ -11298,6 +11423,12 @@ export namespace Prisma {
     update?: XOR<XOR<RecipeUpdateToOneWithWhereWithoutBookmarksInput, RecipeUpdateWithoutBookmarksInput>, RecipeUncheckedUpdateWithoutBookmarksInput>
   }
 
+  export type UserCreateNestedOneWithoutChallengesInput = {
+    create?: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChallengesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type RecipeCreateNestedOneWithoutChallengesInput = {
     create?: XOR<RecipeCreateWithoutChallengesInput, RecipeUncheckedCreateWithoutChallengesInput>
     connectOrCreate?: RecipeCreateOrConnectWithoutChallengesInput
@@ -11316,6 +11447,14 @@ export namespace Prisma {
     connectOrCreate?: ChallengeParticipantCreateOrConnectWithoutChallengeInput | ChallengeParticipantCreateOrConnectWithoutChallengeInput[]
     createMany?: ChallengeParticipantCreateManyChallengeInputEnvelope
     connect?: ChallengeParticipantWhereUniqueInput | ChallengeParticipantWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutChallengesNestedInput = {
+    create?: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChallengesInput
+    upsert?: UserUpsertWithoutChallengesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChallengesInput, UserUpdateWithoutChallengesInput>, UserUncheckedUpdateWithoutChallengesInput>
   }
 
   export type RecipeUpdateOneWithoutChallengesNestedInput = {
@@ -11621,6 +11760,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChallengeCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    weekStart: Date | string
+    weekEnd: Date | string
+    recipe?: RecipeCreateNestedOneWithoutChallengesInput
+    participants?: ChallengeParticipantCreateNestedManyWithoutChallengeInput
+  }
+
+  export type ChallengeUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    recipeId?: string | null
+    weekStart: Date | string
+    weekEnd: Date | string
+    participants?: ChallengeParticipantUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type ChallengeCreateOrConnectWithoutUserInput = {
+    where: ChallengeWhereUniqueInput
+    create: XOR<ChallengeCreateWithoutUserInput, ChallengeUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChallengeCreateManyUserInputEnvelope = {
+    data: ChallengeCreateManyUserInput | ChallengeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RecipeUpsertWithWhereUniqueWithoutUserInput = {
     where: RecipeWhereUniqueInput
     update: XOR<RecipeUpdateWithoutUserInput, RecipeUncheckedUpdateWithoutUserInput>
@@ -11706,6 +11875,35 @@ export namespace Prisma {
     submissionUrl?: StringNullableFilter<"ChallengeParticipant"> | string | null
   }
 
+  export type ChallengeUpsertWithWhereUniqueWithoutUserInput = {
+    where: ChallengeWhereUniqueInput
+    update: XOR<ChallengeUpdateWithoutUserInput, ChallengeUncheckedUpdateWithoutUserInput>
+    create: XOR<ChallengeCreateWithoutUserInput, ChallengeUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChallengeUpdateWithWhereUniqueWithoutUserInput = {
+    where: ChallengeWhereUniqueInput
+    data: XOR<ChallengeUpdateWithoutUserInput, ChallengeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ChallengeUpdateManyWithWhereWithoutUserInput = {
+    where: ChallengeScalarWhereInput
+    data: XOR<ChallengeUpdateManyMutationInput, ChallengeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ChallengeScalarWhereInput = {
+    AND?: ChallengeScalarWhereInput | ChallengeScalarWhereInput[]
+    OR?: ChallengeScalarWhereInput[]
+    NOT?: ChallengeScalarWhereInput | ChallengeScalarWhereInput[]
+    id?: StringFilter<"Challenge"> | string
+    userId?: StringFilter<"Challenge"> | string
+    title?: StringFilter<"Challenge"> | string
+    description?: StringFilter<"Challenge"> | string
+    recipeId?: StringNullableFilter<"Challenge"> | string | null
+    weekStart?: DateTimeFilter<"Challenge"> | Date | string
+    weekEnd?: DateTimeFilter<"Challenge"> | Date | string
+  }
+
   export type UserCreateWithoutRecipesInput = {
     id?: string
     name: string
@@ -11716,6 +11914,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
     participants?: ChallengeParticipantCreateNestedManyWithoutUserInput
+    challenges?: ChallengeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRecipesInput = {
@@ -11728,6 +11927,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
     participants?: ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+    challenges?: ChallengeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecipesInput = {
@@ -11811,11 +12011,13 @@ export namespace Prisma {
     description: string
     weekStart: Date | string
     weekEnd: Date | string
+    user: UserCreateNestedOneWithoutChallengesInput
     participants?: ChallengeParticipantCreateNestedManyWithoutChallengeInput
   }
 
   export type ChallengeUncheckedCreateWithoutRecipeInput = {
     id?: string
+    userId: string
     title: string
     description: string
     weekStart: Date | string
@@ -11854,6 +12056,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
     participants?: ChallengeParticipantUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecipesInput = {
@@ -11866,6 +12069,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
     participants?: ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IngredientUpsertWithWhereUniqueWithoutRecipeInput = {
@@ -11952,18 +12156,6 @@ export namespace Prisma {
   export type ChallengeUpdateManyWithWhereWithoutRecipeInput = {
     where: ChallengeScalarWhereInput
     data: XOR<ChallengeUpdateManyMutationInput, ChallengeUncheckedUpdateManyWithoutRecipeInput>
-  }
-
-  export type ChallengeScalarWhereInput = {
-    AND?: ChallengeScalarWhereInput | ChallengeScalarWhereInput[]
-    OR?: ChallengeScalarWhereInput[]
-    NOT?: ChallengeScalarWhereInput | ChallengeScalarWhereInput[]
-    id?: StringFilter<"Challenge"> | string
-    title?: StringFilter<"Challenge"> | string
-    description?: StringFilter<"Challenge"> | string
-    recipeId?: StringNullableFilter<"Challenge"> | string | null
-    weekStart?: DateTimeFilter<"Challenge"> | Date | string
-    weekEnd?: DateTimeFilter<"Challenge"> | Date | string
   }
 
   export type RecipeCreateWithoutIngredientsInput = {
@@ -12136,6 +12328,7 @@ export namespace Prisma {
     createdAt?: Date | string
     recipes?: RecipeCreateNestedManyWithoutUserInput
     participants?: ChallengeParticipantCreateNestedManyWithoutUserInput
+    challenges?: ChallengeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -12148,6 +12341,7 @@ export namespace Prisma {
     createdAt?: Date | string
     recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
     participants?: ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+    challenges?: ChallengeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -12213,6 +12407,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recipes?: RecipeUpdateManyWithoutUserNestedInput
     participants?: ChallengeParticipantUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -12225,6 +12420,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
     participants?: ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RecipeUpsertWithoutBookmarksInput = {
@@ -12268,6 +12464,37 @@ export namespace Prisma {
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
     steps?: StepUncheckedUpdateManyWithoutRecipeNestedInput
     challenges?: ChallengeUncheckedUpdateManyWithoutRecipeNestedInput
+  }
+
+  export type UserCreateWithoutChallengesInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    avatarUrl?: string | null
+    bio?: string | null
+    createdAt?: Date | string
+    recipes?: RecipeCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
+    participants?: ChallengeParticipantCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutChallengesInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    avatarUrl?: string | null
+    bio?: string | null
+    createdAt?: Date | string
+    recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
+    participants?: ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutChallengesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
   }
 
   export type RecipeCreateWithoutChallengesInput = {
@@ -12329,6 +12556,43 @@ export namespace Prisma {
   export type ChallengeParticipantCreateManyChallengeInputEnvelope = {
     data: ChallengeParticipantCreateManyChallengeInput | ChallengeParticipantCreateManyChallengeInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutChallengesInput = {
+    update: XOR<UserUpdateWithoutChallengesInput, UserUncheckedUpdateWithoutChallengesInput>
+    create: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutChallengesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutChallengesInput, UserUncheckedUpdateWithoutChallengesInput>
+  }
+
+  export type UserUpdateWithoutChallengesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipes?: RecipeUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
+    participants?: ChallengeParticipantUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutChallengesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
+    participants?: ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RecipeUpsertWithoutChallengesInput = {
@@ -12400,6 +12664,7 @@ export namespace Prisma {
     createdAt?: Date | string
     recipes?: RecipeCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkCreateNestedManyWithoutUserInput
+    challenges?: ChallengeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutParticipantsInput = {
@@ -12412,6 +12677,7 @@ export namespace Prisma {
     createdAt?: Date | string
     recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
     bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
+    challenges?: ChallengeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutParticipantsInput = {
@@ -12425,11 +12691,13 @@ export namespace Prisma {
     description: string
     weekStart: Date | string
     weekEnd: Date | string
+    user: UserCreateNestedOneWithoutChallengesInput
     recipe?: RecipeCreateNestedOneWithoutChallengesInput
   }
 
   export type ChallengeUncheckedCreateWithoutParticipantsInput = {
     id?: string
+    userId: string
     title: string
     description: string
     recipeId?: string | null
@@ -12463,6 +12731,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recipes?: RecipeUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutParticipantsInput = {
@@ -12475,6 +12744,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
     bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
+    challenges?: ChallengeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChallengeUpsertWithoutParticipantsInput = {
@@ -12494,11 +12764,13 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
     weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutChallengesNestedInput
     recipe?: RecipeUpdateOneWithoutChallengesNestedInput
   }
 
   export type ChallengeUncheckedUpdateWithoutParticipantsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     recipeId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12529,6 +12801,15 @@ export namespace Prisma {
     challengeId: string
     joinedAt?: Date | string
     submissionUrl?: string | null
+  }
+
+  export type ChallengeCreateManyUserInput = {
+    id?: string
+    title: string
+    description: string
+    recipeId?: string | null
+    weekStart: Date | string
+    weekEnd: Date | string
   }
 
   export type RecipeUpdateWithoutUserInput = {
@@ -12614,6 +12895,35 @@ export namespace Prisma {
     submissionUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ChallengeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipe?: RecipeUpdateOneWithoutChallengesNestedInput
+    participants?: ChallengeParticipantUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type ChallengeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    recipeId?: NullableStringFieldUpdateOperationsInput | string | null
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: ChallengeParticipantUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type ChallengeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    recipeId?: NullableStringFieldUpdateOperationsInput | string | null
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IngredientCreateManyRecipeInput = {
     id?: string
     name: string
@@ -12636,6 +12946,7 @@ export namespace Prisma {
 
   export type ChallengeCreateManyRecipeInput = {
     id?: string
+    userId: string
     title: string
     description: string
     weekStart: Date | string
@@ -12708,11 +13019,13 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
     weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutChallengesNestedInput
     participants?: ChallengeParticipantUpdateManyWithoutChallengeNestedInput
   }
 
   export type ChallengeUncheckedUpdateWithoutRecipeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12722,6 +13035,7 @@ export namespace Prisma {
 
   export type ChallengeUncheckedUpdateManyWithoutRecipeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
