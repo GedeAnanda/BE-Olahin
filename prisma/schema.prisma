@@ -12,7 +12,7 @@ datasource db {
 model User {
   id String @id @default(uuid())
   name String
-  email String
+  email String @unique
   passwordHash String
   avatarUrl String?
   bio String?
@@ -22,6 +22,10 @@ model User {
   bookmarks Bookmark[]
   participants ChallengeParticipant[]
   challenges Challenge[]
+  ingredients UserIngredient[]
+  budgets Budget[]
+  transactions Transaction[]
+  notifications Notification[]
 
 }
 
@@ -103,3 +107,53 @@ model ChallengeParticipant {
   @@unique([userId, challengeId])
 } 
 
+model UserIngredient {
+  id String @id @default(uuid())
+  userId String
+  name String
+  category String
+  quantity Float
+  unit String
+  expiredAt DateTime? 
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Budget {
+  id String @id @default(uuid())
+  userId String
+  month Int
+  year Int
+  limitAmount Float
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+  @@unique([userId, month, year])
+}
+
+model Transaction {
+  id String @id @default(uuid())
+  userId String
+  budgetId String
+  title String
+  amount Float
+  type String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  budget Budget @relation(fields: [budgetId], references: [id])
+}
+
+model Notification {
+  id String @id @default(uuid())
+  userId String
+  title String
+  message String
+  type String
+  isRead Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}

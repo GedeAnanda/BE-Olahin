@@ -185,6 +185,46 @@ exports.Prisma.ChallengeParticipantScalarFieldEnum = {
   submissionUrl: 'submissionUrl'
 };
 
+exports.Prisma.UserIngredientScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  category: 'category',
+  quantity: 'quantity',
+  unit: 'unit',
+  expiredAt: 'expiredAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BudgetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  month: 'month',
+  year: 'year',
+  limitAmount: 'limitAmount',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  budgetId: 'budgetId',
+  title: 'title',
+  amount: 'amount',
+  type: 'type',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -208,7 +248,11 @@ exports.Prisma.ModelName = {
   Step: 'Step',
   Bookmark: 'Bookmark',
   Challenge: 'Challenge',
-  ChallengeParticipant: 'ChallengeParticipant'
+  ChallengeParticipant: 'ChallengeParticipant',
+  UserIngredient: 'UserIngredient',
+  Budget: 'Budget',
+  Transaction: 'Transaction',
+  Notification: 'Notification'
 };
 
 /**
