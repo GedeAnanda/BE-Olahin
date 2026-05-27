@@ -148,10 +148,34 @@ const deleteTransaction = async (userId, transactionId) => {
   return { message: "Transaksi berhasil dihapus" };
 };
 
+const updateBudget = async (userId, budgetId, body) => {
+  const budget = await prisma.budget.findUnique({
+    where: { id: budgetId },
+  });
+
+  if (!budget) {
+    throw new Error("Budget tidak ditemukan");
+  }
+
+  if (budget.userId !== userId) {
+    throw new Error("Kamu tidak berhak mengubah budget ini");
+  }
+
+  const updated = await prisma.budget.update({
+    where: { id: budgetId },
+    data: {
+      limitAmount: body.limitAmount,
+    },
+  });
+
+  return updated;
+};
+
 export default {
   getBudget,
   createBudget,
   addTransaction,
   getTransactions,
   deleteTransaction,
+  updateBudget,
 };

@@ -20,6 +20,10 @@ const transactionSchema = z.object({
   }),
 });
 
+const updateBudgetSchema = z.object({
+  limitAmount: z.number().min(1000, "Limit minimal Rp 1.000"),
+});
+
 router.get("/", authMiddleware, budgetController.getBudget);
 router.post(
   "/",
@@ -32,11 +36,24 @@ router.get(
   authMiddleware,
   budgetController.getTransactions,
 );
+router.patch(
+  "/:id",
+  authMiddleware,
+  validate(updateBudgetSchema),
+  budgetController.updateBudget,
+);
 router.post(
   "/:budgetId/transactions",
   authMiddleware,
   validate(transactionSchema),
   budgetController.addTransaction,
+);
+
+router.patch(
+  "/:id",
+  authMiddleware,
+  validate(updateBudgetSchema),
+  budgetController.updateBudget,
 );
 router.delete(
   "/transactions/:transactionId",

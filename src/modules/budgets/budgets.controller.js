@@ -109,10 +109,30 @@ const deleteTransaction = async (req, res) => {
   }
 };
 
+const updateBudget = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
+
+    const data = await budgetsService.updateBudget(userId, id, req.body);
+
+    return res.status(200).json({
+      success: true,
+      message: "Berhasil update budget",
+      data,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 export default {
   getBudget,
   createBudget,
   addTransaction,
   getTransactions,
   deleteTransaction,
+  updateBudget,
 };
