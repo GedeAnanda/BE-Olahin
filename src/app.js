@@ -7,6 +7,7 @@ import bookmarkRoutes from "./modules/bookmarks/bookmarks.routes.js";
 import challengeRoutes from "./modules/challenges/challenges.routes.js";
 import userRoutes from "./modules/users/users.routes.js";
 import ingredientsRoutes from "./modules/ingredients/ingredients.routes.js";
+import budgetRoutes from "./modules/budgets/budgets.routes.js";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/api/bookmarks", bookmarkRoutes);
 app.use("/api/challenges", challengeRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/ingredients", ingredientsRoutes);
+app.use("/api/budgets", budgetRoutes);
 
 export default app;
